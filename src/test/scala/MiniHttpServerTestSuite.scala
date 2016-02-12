@@ -5,16 +5,7 @@ import org.scalatest.{BeforeAndAfterAll, FunSuite}
 class MiniHttpServerTestSuite extends FunSuite with BeforeAndAfterAll {
 
   // Define a test server that has a few pages we can test against
-  val server = MiniHttpServer(port = 8000) {
-    case exchange@p("/") =>
-      Ok("It works!")
-    case exchange@p("/json") =>
-      exchange.getResponseHeaders.add("Content-type", "application/json")
-      Ok("""{message:"Hello World!"}""")
-    case p("/foo") =>
-      Ok("And here's foo.")
-    case p("/exception") => throw new IllegalStateException("error")
-  }
+  val server: MiniHttpServer = ???
 
   // Start the server before we start testing
   override def beforeAll() {
