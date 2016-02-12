@@ -9,8 +9,8 @@ import scala.util.{Failure, Success, Try}
 abstract class BaseHttpServer(val socketAddress: String = "127.0.0.1",
                               val port: Int = 8080,
                               val backlog: Int = 0) extends HttpHandler {
-  private val address = new InetSocketAddress(socketAddress, port)
-  private val server = MiniHttpServer.create(address, backlog)
+  private lazy val address = new InetSocketAddress(socketAddress, port)
+  private lazy val server = HttpServer.create(address, backlog)
   server.createContext("/", this)
 
   /**

@@ -1,8 +1,24 @@
 
 case class Response(status: Int, body: String)
 
-case object NotFound extends Response(404, "")
+object NotFound {
+  def apply(): Response = Response(404, "")
 
-case class Ok(override val body: String) extends Response(200, body)
+  def unapply(r: Response): Boolean = r.status == 404
 
-case class InternalError(override val body: String) extends Response(500, body)
+}
+
+object Ok {
+  def apply(body: String): Response = Response(200, body)
+
+  def unapply(r: Response): Boolean = r.status == 200
+
+}
+
+object InternalError {
+  def apply(body: String): Response = Response(500, body)
+
+  def unapply(r: Response): Boolean = r.status == 500
+}
+
+
